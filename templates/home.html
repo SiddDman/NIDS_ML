@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<title>Network Intrusion Detection System</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"> -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #5f40b7;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .custom-dropdown {
+        height: auto;
+    }
+
+    h2 {
+        margin-top: 30px;
+        color: #5f40b7;
+    }
+</style>
+</head>
+
+
+<body>
+    <h1>Network Intrusion Detection System</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="model">Select Model</label>
+        <select id="model" name="model" multiple size="7" class="custom-dropdown" required="true">
+            <option value="gaussian_naive_bayes">Gaussian Naive Bayes</option>
+            <option value="decision_tree">Decision Tree</option>
+            <option value="random_forest">Random Forest</option>
+            <option value="logistic_regression">Logistic Regression</option>
+            <option value="svm">SVM</option>
+            <option value="gradboost">Gradient Boosting</option>
+        </select>
+
+
+        <h2>Enter Packet details:</h2>
+
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration"><br><br>
+
+        <label for="protocol_type">Protocol Type(icmp,tcp,udp,ftp,ip,smtp,etc):</label>
+        <input type="text" id="protocol_type" name="protocol_type"><br><br>
+
+        <label for="service">Service(http,private,etc):</label>
+        <input type="text" id="service" name="service"><br><br>
+
+        <label for="flag">Flag(SF,S0,REJ,RSTR,RSTO,,SH,S1,S2,RSTOS0,OTH,etc):</label>
+        <input type="text" id="flag" name="flag"><br><br>
+
+        <label for="src_bytes">Source Bytes:</label>
+        <input type="text" id="src_bytes" name="src_bytes"><br><br>
+
+        <label for="dst_bytes">Destination Bytes:</label>
+        <input type="text" id="dst_bytes" name="dst_bytes"><br><br>
+
+        <label for="land">Land:</label>
+        <input type="text" id="land" name="land"><br><br>
+
+        <label for="wrong_fragment">Wrong Fragment:</label>
+        <input type="text" id="wrong_fragment" name="wrong_fragment"><br><br>
+
+        <label for="urgent">Urgent:</label>
+        <input type="text" id="urgent" name="urgent"><br><br>
+
+        <label for="hot">Hot:</label>
+        <input type="text" id="hot" name="hot"><br><br>
+
+        <label for="num_failed_logins">Number of Failed Logins:</label>
+        <input type="text" id="num_failed_logins" name="num_failed_logins"><br><br>
+
+        <label for="logged_in">Logged In:</label>
+        <input type="text" id="logged_in" name="logged_in"><br><br>
+
+        <label for="num_compromised">Number of Compromised:</label>
+        <input type="text" id="num_compromised" name="num_compromised"><br><br>
+
+        <label for="root_shell">Root Shell:</label>
+        <input type="text" id="root_shell" name="root_shell"><br><br>
+
+        <label for="su_attempted">SU Attempted:</label>
+        <input type="text" id="su_attempted" name="su_attempted"><br><br>
+
+        <label for="num_file_creations">Number of File Creations:</label>
+        <input type="text" id="num_file_creations" name="num_file_creations"><br><br>
+
+        <label for="num_shells">Number of Shells:</label>
+        <input type="text" id="num_shells" name="num_shells"><br><br>
+
+        <label for="num_access_files">Number of Access Files:</label>
+        <input type="text" id="num_access_files" name="num_access_files"><br><br>
+
+        <label for="is_guest_login">Is Guest Login:</label>
+        <input type="text" id="is_guest_login" name="is_guest_login"><br><br>
+
+        <label for="count">Count:</label>
+        <input type="text" id="count" name="count"><br><br>
+
+        <label for="srv_count">Server Count:</label>
+        <input type="text" id="srv_count" name="srv_count"><br><br>
+
+        <label for="serror_rate">Error Rate:</label>
+        <input type="text" id="serror_rate" name="serror_rate"><br><br>
+
+        <label for="rerror_rate">Reliability Error Rate:</label>
+        <input type="text" id="rerror_rate" name="rerror_rate"><br><br>
+
+        <label for="same_srv_rate">Same Server Rate:</label>
+        <input type="text" id="same_srv_rate" name="same_srv_rate"><br><br>
+
+        <label for="diff_srv_rate">Different Server Rate:</label>
+        <input type="text" id="diff_srv_rate" name="diff_srv_rate"><br><br>
+
+        <label for="srv_diff_host_rate">Server Different Host Rate:</label>
+        <input type="text" id="srv_diff_host_rate" name="srv_diff_host_rate"><br><br>
+
+        <label for="dst_host_count">Destination Host Count:</label>
+        <input type="text" id="dst_host_count" name="dst_host_count"><br><br>
+
+        <label for="dst_host_srv_count">Destination Host Server Count:</label>
+        <input type="text" id="dst_host_srv_count" name="dst_host_srv_count"><br><br>
+
+        <label for="dst_host_diff_srv_rate">Destination Host Different Server Rate:</label>
+        <input type="text" id="dst_host_diff_srv_rate" name="dst_host_diff_srv_rate"><br><br>
+
+        <label for="dst_host_same_src_port_rate">Destination Host Same Source Port Rate:</label>
+        <input type="text" id="dst_host_same_src_port_rate" name="dst_host_same_src_port_rate"><br><br>
+
+        <label for="dst_host_srv_diff_host_rate">Destination Host Server Different Host Rate:</label>
+        <input type="text" id="dst_host_srv_diff_host_rate" name="dst_host_srv_diff_host_rate"><br><br>
+
+        <input type="submit" value="Predict" />
+    </form>
+</body>
+
+</html>

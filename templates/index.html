@@ -1,0 +1,322 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>Network Intrusion Detection System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <h1>Network Intrusion Detection System</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="model">Select Model(s):</label>
+        <!-- <select id="model" name="model" multiple size="7">
+            <option value="gaussian_naive_bayes">Gaussian Naive Bayes</option>
+            <option value="decision_tree">Decision Tree</option>
+            <option value="random_forest">Random Forest</option>
+            <option value="logistic_regression">Logistic Regression</option>
+            <option value="svm">SVM</option>
+            <option value="gradboost">Gradient Boosting</option>
+        </select> -->
+        <select id="model" name="model" multiple size="7" class="custom-dropdown" required="true">
+            <option value="gaussian_naive_bayes">Gaussian Naive Bayes</option>
+            <option value="decision_tree">Decision Tree</option>
+            <option value="random_forest">Random Forest</option>
+            <option value="logistic_regression">Logistic Regression</option>
+            <option value="svm">SVM</option>
+            <option value="gradboost">Gradient Boosting</option>
+        </select>
+        <h2>Enter details manually:</h2>
+
+        <label for="duration">Duration (int64):</label><br>
+        <input type="number" id="duration" name="duration" required><br><br>
+
+        <label for="protocol_type">Protocol Type (object):</label><br>
+        <input type="text" id="protocol_type" name="protocol_type" required><br><br>
+
+        <label for="service">Service (object):</label><br>
+        <input type="text" id="service" name="service" required><br><br>
+
+        <label for="flag">Flag (object):</label><br>
+        <input type="text" id="flag" name="flag" required><br><br>
+
+        <label for="src_bytes">Source Bytes (int64):</label><br>
+        <input type="number" id="src_bytes" name="src_bytes" required><br><br>
+
+        <label for="dst_bytes">Destination Bytes (int64):</label><br>
+        <input type="number" id="dst_bytes" name="dst_bytes" required><br><br>
+
+        <label for="land">Land (int64):</label><br>
+        <input type="number" id="land" name="land" required><br><br>
+
+        <label for="wrong_fragment">Wrong Fragment (int64):</label><br>
+        <input type="number" id="wrong_fragment" name="wrong_fragment" required><br><br>
+
+        <label for="urgent">Urgent (int64):</label><br>
+        <input type="number" id="urgent" name="urgent" required><br><br>
+
+        <label for="hot">Hot (int64):</label><br>
+        <input type="number" id="hot" name="hot" required><br><br>
+
+        <label for="num_failed_logins">Number of Failed Logins (int64):</label><br>
+        <input type="number" id="num_failed_logins" name="num_failed_logins" required><br><br>
+
+        <label for="logged_in">Logged In (int64):</label><br>
+        <input type="number" id="logged_in" name="logged_in" required><br><br>
+
+        <label for="num_compromised">Number of Compromised (int64):</label><br>
+        <input type="number" id="num_compromised" name="num_compromised" required><br><br>
+
+        <label for="root_shell">Root Shell (int64):</label><br>
+        <input type="number" id="root_shell" name="root_shell" required><br><br>
+
+        <label for="su_attempted">SU Attempted (int64):</label><br>
+        <input type="number" id="su_attempted" name="su_attempted" required><br><br>
+
+        <!-- <label for="num_root">Number of Root (int64):</label><br>
+        <input type="number" id="num_root" name="num_root" required><br><br> -->
+
+        <label for="num_file_creations">Number of File Creations (int64):</label><br>
+        <input type="number" id="num_file_creations" name="num_file_creations" required><br><br>
+
+        <label for="num_shells">Number of Shells (int64):</label><br>
+        <input type="number" id="num_shells" name="num_shells" required><br><br>
+
+        <label for="num_access_files">Number of Access Files (int64):</label><br>
+        <input type="number" id="num_access_files" name="num_access_files" required><br><br>
+
+        <label for="num_outbound_cmds">Number of Outbound Commands (int64):</label><br>
+        <input type="number" id="num_outbound_cmds" name="num_outbound_cmds" required><br><br>
+
+        <label for="is_host_login">Is Host Login (int64):</label><br>
+        <input type="number" id="is_host_login" name="is_host_login" required><br><br>
+
+        <label for="is_guest_login">Is Guest Login (int64):</label><br>
+        <input type="number" id="is_guest_login" name="is_guest_login" required><br><br>
+
+        <label for="count">Count (int64):</label><br>
+        <input type="number" id="count" name="count" required><br><br>
+
+        <label for="srv_count">Service Count (int64):</label><br>
+        <input type="number" id="srv_count" name="srv_count" required><br><br>
+
+        <label for="serror_rate">Serror Rate (float64):</label><br>
+        <input type="number" id="serror_rate" name="serror_rate" step="any" required><br><br>
+
+        <!-- <label for="srv_serror_rate">Service Serror Rate (float64):</label><br>
+        <input type="number" id="srv_serror_rate" name="srv_serror_rate" step="any" required><br><br> -->
+
+        <label for="rerror_rate">Rerror Rate (float64):</label><br>
+        <input type="number" id="rerror_rate" name="rerror_rate" step="any" required><br><br>
+
+        <!-- <label for="srv_rerror_rate">Service Rerror Rate (float64):</label><br>
+        <input type="number" id="srv_rerror_rate" name="srv_rerror_rate" step="any" required><br><br> -->
+
+        <label for="same_srv_rate">Same Service Rate (float64):</label><br>
+        <input type="number" id="same_srv_rate" name="same_srv_rate" step="any" required><br><br>
+
+        <label for="diff_srv_rate">Different Service Rate (float64):</label><br>
+        <input type="number" id="diff_srv_rate" name="diff_srv_rate" step="any" required><br><br>
+
+        <label for="srv_diff_host_rate">Service Different Host Rate (float64):</label><br>
+        <input type="number" id="srv_diff_host_rate" name="srv_diff_host_rate" step="any" required><br><br>
+
+        <!-- <label for="dst_host_count">Destination Host Count (int64):</label><br>
+        <input type="number" id="dst_host_count" name="dst_host_count" required><br><br> -->
+
+        <label for="dst_host_srv_count">Destination Host Service Count (int64):</label><br>
+        <input type="number" id="dst_host_srv_count" name="dst_host_srv_count" required><br><br>
+
+        <label for="dst_host_same_srv_rate">Destination Host Same Service Rate (float64):</label><br>
+        <input type="number" id="dst_host_same_srv_rate" name="dst_host_same_srv_rate" step="any" required><br><br>
+        <!-- 
+        <label for="dst_host_diff_srv_rate">Destination Host Different Service Rate (float64):</label><br>
+        <input type="number" id="dst_host_diff_srv_rate" name="dst_host_diff_srv_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_same_src_port_rate">Destination Host Same Source Port Rate (float64):</label><br>
+        <input type="number" id="dst_host_same_src_port_rate" name="dst_host_same_src_port_rate" step="any"
+            required><br><br> -->
+
+        <!-- <label for="dst_host_srv_diff_host_rate">Destination Host Service Different Host Rate (float64):</label><br>
+        <input type="number" id="dst_host_srv_diff_host_rate" name="dst_host_srv_diff_host_rate" step="any"
+            required><br><br> -->
+
+        <!-- <label for="dst_host_serror_rate">Destination Host Serror Rate (float64):</label><br>
+        <input type="number" id="dst_host_serror_rate" name="dst_host_serror_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_srv_serror_rate">Destination Host Service Serror Rate (float64):</label><br> -->
+        <!-- <input type="number" id="dst_host_srv_serror_rate" name="dst_host_srv_serror_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_rerror_rate">Destination Host Rerror Rate (float64):</label><br>
+        <input type="number" id="dst_host_rerror_rate" name="dst_host_rerror_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_srv_rerror_rate">Destination Host Service Rerror Rate (float64):</label><br> -->
+        <!-- <input type="number" id="dst_host_srv_rerror_rate" name="dst_host_srv_rerror_rate" step="any" required><br><br> -->
+
+        <input type="submit" value="Predict" />
+    </form>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Network Intrusion Detection System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <h1>Network Intrusion Detection System</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <label for="model">Select Model(s):</label>
+        <!-- <select id="model" name="model" multiple size="7">
+            <option value="gaussian_naive_bayes">Gaussian Naive Bayes</option>
+            <option value="decision_tree">Decision Tree</option>
+            <option value="random_forest">Random Forest</option>
+            <option value="logistic_regression">Logistic Regression</option>
+            <option value="svm">SVM</option>
+            <option value="gradboost">Gradient Boosting</option>
+        </select> -->
+        <select id="model" name="model" multiple size="7" class="custom-dropdown" required="true">
+            <option value="gaussian_naive_bayes">Gaussian Naive Bayes</option>
+            <option value="decision_tree">Decision Tree</option>
+            <option value="random_forest">Random Forest</option>
+            <option value="logistic_regression">Logistic Regression</option>
+            <option value="svm">SVM</option>
+            <option value="gradboost">Gradient Boosting</option>
+        </select>
+        <h2>Enter details manually:</h2>
+
+        <label for="duration">Duration (int64):</label><br>
+        <input type="number" id="duration" name="duration" required><br><br>
+
+        <label for="protocol_type">Protocol Type (object):</label><br>
+        <input type="text" id="protocol_type" name="protocol_type" required><br><br>
+
+        <label for="service">Service (object):</label><br>
+        <input type="text" id="service" name="service" required><br><br>
+
+        <label for="flag">Flag (object):</label><br>
+        <input type="text" id="flag" name="flag" required><br><br>
+
+        <label for="src_bytes">Source Bytes (int64):</label><br>
+        <input type="number" id="src_bytes" name="src_bytes" required><br><br>
+
+        <label for="dst_bytes">Destination Bytes (int64):</label><br>
+        <input type="number" id="dst_bytes" name="dst_bytes" required><br><br>
+
+        <label for="land">Land (int64):</label><br>
+        <input type="number" id="land" name="land" required><br><br>
+
+        <label for="wrong_fragment">Wrong Fragment (int64):</label><br>
+        <input type="number" id="wrong_fragment" name="wrong_fragment" required><br><br>
+
+        <label for="urgent">Urgent (int64):</label><br>
+        <input type="number" id="urgent" name="urgent" required><br><br>
+
+        <label for="hot">Hot (int64):</label><br>
+        <input type="number" id="hot" name="hot" required><br><br>
+
+        <label for="num_failed_logins">Number of Failed Logins (int64):</label><br>
+        <input type="number" id="num_failed_logins" name="num_failed_logins" required><br><br>
+
+        <label for="logged_in">Logged In (int64):</label><br>
+        <input type="number" id="logged_in" name="logged_in" required><br><br>
+
+        <label for="num_compromised">Number of Compromised (int64):</label><br>
+        <input type="number" id="num_compromised" name="num_compromised" required><br><br>
+
+        <label for="root_shell">Root Shell (int64):</label><br>
+        <input type="number" id="root_shell" name="root_shell" required><br><br>
+
+        <label for="su_attempted">SU Attempted (int64):</label><br>
+        <input type="number" id="su_attempted" name="su_attempted" required><br><br>
+
+        <!-- <label for="num_root">Number of Root (int64):</label><br>
+        <input type="number" id="num_root" name="num_root" required><br><br> -->
+
+        <label for="num_file_creations">Number of File Creations (int64):</label><br>
+        <input type="number" id="num_file_creations" name="num_file_creations" required><br><br>
+
+        <label for="num_shells">Number of Shells (int64):</label><br>
+        <input type="number" id="num_shells" name="num_shells" required><br><br>
+
+        <label for="num_access_files">Number of Access Files (int64):</label><br>
+        <input type="number" id="num_access_files" name="num_access_files" required><br><br>
+
+        <label for="num_outbound_cmds">Number of Outbound Commands (int64):</label><br>
+        <input type="number" id="num_outbound_cmds" name="num_outbound_cmds" required><br><br>
+
+        <label for="is_host_login">Is Host Login (int64):</label><br>
+        <input type="number" id="is_host_login" name="is_host_login" required><br><br>
+
+        <label for="is_guest_login">Is Guest Login (int64):</label><br>
+        <input type="number" id="is_guest_login" name="is_guest_login" required><br><br>
+
+        <label for="count">Count (int64):</label><br>
+        <input type="number" id="count" name="count" required><br><br>
+
+        <label for="srv_count">Service Count (int64):</label><br>
+        <input type="number" id="srv_count" name="srv_count" required><br><br>
+
+        <label for="serror_rate">Serror Rate (float64):</label><br>
+        <input type="number" id="serror_rate" name="serror_rate" step="any" required><br><br>
+
+        <!-- <label for="srv_serror_rate">Service Serror Rate (float64):</label><br>
+        <input type="number" id="srv_serror_rate" name="srv_serror_rate" step="any" required><br><br> -->
+
+        <label for="rerror_rate">Rerror Rate (float64):</label><br>
+        <input type="number" id="rerror_rate" name="rerror_rate" step="any" required><br><br>
+
+        <!-- <label for="srv_rerror_rate">Service Rerror Rate (float64):</label><br>
+        <input type="number" id="srv_rerror_rate" name="srv_rerror_rate" step="any" required><br><br> -->
+
+        <label for="same_srv_rate">Same Service Rate (float64):</label><br>
+        <input type="number" id="same_srv_rate" name="same_srv_rate" step="any" required><br><br>
+
+        <label for="diff_srv_rate">Different Service Rate (float64):</label><br>
+        <input type="number" id="diff_srv_rate" name="diff_srv_rate" step="any" required><br><br>
+
+        <label for="srv_diff_host_rate">Service Different Host Rate (float64):</label><br>
+        <input type="number" id="srv_diff_host_rate" name="srv_diff_host_rate" step="any" required><br><br>
+
+        <!-- <label for="dst_host_count">Destination Host Count (int64):</label><br>
+        <input type="number" id="dst_host_count" name="dst_host_count" required><br><br> -->
+
+        <label for="dst_host_srv_count">Destination Host Service Count (int64):</label><br>
+        <input type="number" id="dst_host_srv_count" name="dst_host_srv_count" required><br><br>
+
+        <label for="dst_host_same_srv_rate">Destination Host Same Service Rate (float64):</label><br>
+        <input type="number" id="dst_host_same_srv_rate" name="dst_host_same_srv_rate" step="any" required><br><br>
+        <!-- 
+        <label for="dst_host_diff_srv_rate">Destination Host Different Service Rate (float64):</label><br>
+        <input type="number" id="dst_host_diff_srv_rate" name="dst_host_diff_srv_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_same_src_port_rate">Destination Host Same Source Port Rate (float64):</label><br>
+        <input type="number" id="dst_host_same_src_port_rate" name="dst_host_same_src_port_rate" step="any"
+            required><br><br> -->
+
+        <!-- <label for="dst_host_srv_diff_host_rate">Destination Host Service Different Host Rate (float64):</label><br>
+        <input type="number" id="dst_host_srv_diff_host_rate" name="dst_host_srv_diff_host_rate" step="any"
+            required><br><br> -->
+
+        <!-- <label for="dst_host_serror_rate">Destination Host Serror Rate (float64):</label><br>
+        <input type="number" id="dst_host_serror_rate" name="dst_host_serror_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_srv_serror_rate">Destination Host Service Serror Rate (float64):</label><br> -->
+        <!-- <input type="number" id="dst_host_srv_serror_rate" name="dst_host_srv_serror_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_rerror_rate">Destination Host Rerror Rate (float64):</label><br>
+        <input type="number" id="dst_host_rerror_rate" name="dst_host_rerror_rate" step="any" required><br><br> -->
+
+        <!-- <label for="dst_host_srv_rerror_rate">Destination Host Service Rerror Rate (float64):</label><br> -->
+        <!-- <input type="number" id="dst_host_srv_rerror_rate" name="dst_host_srv_rerror_rate" step="any" required><br><br> -->
+
+        <input type="submit" value="Predict" />
+    </form>
+</body>
+
+</html>
